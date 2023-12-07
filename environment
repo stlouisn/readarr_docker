@@ -1,0 +1,8 @@
+# Build variables
+export BUILD_PLATFORMS="linux/amd64,linux/arm64,linux/arm/v7"
+
+# Docker labels
+export C_DESCRIPTION="ebook collection manager"
+export C_MAINTAINER="stlouisn"
+export C_NAME="readarr"
+export C_TAG="latest"
