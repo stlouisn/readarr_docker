@@ -11,22 +11,23 @@ RUN \
     # Update apt-cache
     apt-get update && \
 
-    # Install jq
+    # Install curl
     apt-get install -y --no-install-recommends \
         curl && \
 
     # Download Readarr
-# ubuntu noble base image causes issues downloading files from github using curl --> temporarily disabled
-    #if [ "arm" = "$TARGETARCH" ] ; then curl -o /tmp/readarr.tar.gz -sSL "http://readarr.servarr.com/v1/update/develop/updatefile?os=linux&runtime=netcore&arch=arm" ; fi && \
-# ubuntu noble base image causes issues downloading files from github using curl --> temporarily disabled
-    #if [ "arm64" = "$TARGETARCH" ] ; then curl -o /tmp/readarr.tar.gz -sSL "http://readarr.servarr.com/v1/update/develop/updatefile?os=linux&runtime=netcore&arch=arm64" ; fi && \
-    if [ "amd64" = "$TARGETARCH" ] ; then curl -o /tmp/readarr.tar.gz -sSL "http://readarr.servarr.com/v1/update/develop/updatefile?os=linux&runtime=netcore&arch=x64" ; fi && \
 
-# ubuntu noble base image causes issues downloading files from github using curl --> temporarily disabled
-    if [ "arm" = "$TARGETARCH" ]   ; then apt-get install -y --no-install-recommends wget2 ; fi && \
-    if [ "arm" = "$TARGETARCH" ]   ; then wget2 -O /tmp/readarr.tar.gz -q "http://readarr.servarr.com/v1/update/develop/updatefile?os=linux&runtime=netcore&arch=arm" ; fi && \
-    if [ "arm64" = "$TARGETARCH" ] ; then apt-get install -y --no-install-recommends wget2 ; fi && \
-    if [ "arm64" = "$TARGETARCH" ] ; then wget2 -O /tmp/readarr.tar.gz -q "http://readarr.servarr.com/v1/update/develop/updatefile?os=linux&runtime=netcore&arch=arm64" ; fi && \
+        # ubuntu noble base image causes issues downloading files from github using curl --> temporary working around
+        #if [ "arm" = "$TARGETARCH" ] ; then curl -o /tmp/readarr.tar.gz -sSL "http://readarr.servarr.com/v1/update/develop/updatefile?os=linux&runtime=netcore&arch=arm" ; fi && \
+        if [ "arm" = "$TARGETARCH" ]   ; then apt-get install -y --no-install-recommends wget2 ; fi && \
+        if [ "arm" = "$TARGETARCH" ]   ; then wget2 -O /tmp/readarr.tar.gz -q "http://readarr.servarr.com/v1/update/develop/updatefile?os=linux&runtime=netcore&arch=arm" ; fi && \
+
+        # ubuntu noble base image causes issues downloading files from github using curl --> temporary working around
+        #if [ "arm64" = "$TARGETARCH" ] ; then curl -o /tmp/readarr.tar.gz -sSL "http://readarr.servarr.com/v1/update/develop/updatefile?os=linux&runtime=netcore&arch=arm64" ; fi && \
+        if [ "arm64" = "$TARGETARCH" ] ; then apt-get install -y --no-install-recommends wget2 ; fi && \
+        if [ "arm64" = "$TARGETARCH" ] ; then wget2 -O /tmp/readarr.tar.gz -q "http://readarr.servarr.com/v1/update/develop/updatefile?os=linux&runtime=netcore&arch=arm64" ; fi && \
+
+        if [ "amd64" = "$TARGETARCH" ] ; then curl -o /tmp/readarr.tar.gz -sSL "http://readarr.servarr.com/v1/update/develop/updatefile?os=linux&runtime=netcore&arch=x64" ; fi && \
 
     # Extract Readarr
     mkdir -p /userfs && \
